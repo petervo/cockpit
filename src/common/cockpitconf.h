@@ -23,6 +23,7 @@
 #include <glib.h>
 
 G_BEGIN_DECLS
+extern const gchar *cockpit_config_file;
 
 const gchar *   cockpit_conf_string           (const gchar *section,
                                                const gchar *field);
@@ -33,5 +34,7 @@ const gchar **  cockpit_conf_strv             (const gchar *section,
                                                gchar delimiter);
 
 void            cockpit_conf_cleanup          (void);
+
+void            cockpit_conf_init             (void);
 
 #endif /* COCKPIT_CONF_H__ */
