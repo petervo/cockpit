@@ -33,6 +33,7 @@
         'kubeClient',
         'kubernetes.date',
         'kubernetes.listing',
+        'kubernetes.commissaire',
         'kubeUtils',
         'ui.cockpit',
         'ui.charts',
@@ -68,15 +69,30 @@
         'nodeActions',
         'nodeData',
         'nodeStatsSummary',
+        'Commissaire',
         '$timeout',
         '$window',
         function($scope, loader, select,  ListingState, filterService,
                  $routeParams, $location, actions, nodeData, statsSummary,
-                 $timeout, $window) {
+                 Commissaire, $timeout, $window) {
             var target = $routeParams["target"] || "";
             $scope.target = target;
 
             $scope.stats = statsSummary.newNodeStatsSummary();
+            $scope.commissaire = null;
+            var cOpts = {
+                "address": "192.168.122.1",
+                "port": 8000,
+                "headers": { "Authorization": "Basic " + window.btoa("fedora:root") }
+            };
+
+            $scope.$watchCollection('commissaire', function() {});
+
+            Commissaire.connectDirect(cOpts)
+                .then(function (obj) {
+                    $scope.commissaire = obj;
+
+                });
 
             var c = loader.listen(function() {
                 var timer, selection;
@@ -272,7 +288,9 @@
     .factory('nodeData', [
         "KubeMapNamedArray",
         "KubeTranslate",
-        function (mapNamedArray, translate) {
+        "COMMISSAIRE_DONE",
+        "COMMISSAIRE_RUNNING",
+        function (mapNamedArray, translate, COMMISSAIRE_DONE, COMMISSAIRE_RUNNING) {
             var _ = translate.gettext;
 
             function nodeConditions(node) {
@@ -292,8 +310,15 @@
                 return conditions[type] || {};
             }
 
-            function nodeStatus(node) {
+            function nodeStatus(node, commissaire) {
                 var spec = node ? node.spec : {};
+                var upgradeStatus;
+                if (commissaire)
+                    upgradeStatus = commissaire.getUpgradeStatus(node);
+
+                if (upgradeStatus == COMMISSAIRE_RUNNING)
+                    return _("Update in progress");
+
                 if (!nodeCondition(node, "Ready").status)
                     return _("Unknown");
 
@@ -306,8 +331,15 @@
                 return _("Ready");
             }
 
-            function nodeStatusIcon(node) {
+            function nodeStatusIcon(node, commissaire) {
                 var state = "";
+                var upgradeStatus;
+                if (commissaire)
+                    upgradeStatus = commissaire.getUpgradeStatus(node);
+
+                if (upgradeStatus == COMMISSAIRE_RUNNING)
+                    return "wait";
+
                 /* If no status.conditions then it hasn't even started */
                 if (!nodeCondition(node, "Ready").status) {
                     state = "wait";
@@ -621,9 +653,10 @@
 
             return {
                 scope: {
-                    'nodes' : '='
+                    'nodes' : '=',
+                    'commissaire': '='
                 },
-                template: '<div class="col-xs-12 col-md-6" id="os-counts-graph" donut-pct-chart data="data" bar-size="8" legend="os-counts-legend" large-title="largeTitle"></div><div class="col-xs-12 col-md-6 legend-col"><div id="os-counts-legend"></div></div>',
+                templateUrl: 'views/nodes-os-chart.html',
                 restrict: 'A',
                 link: function($scope, element, attributes) {
                     $scope.data = [];
@@ -739,6 +772,8 @@
                             result = $scope.stats.getSimpleUsage(node, currentTab);
                             if (result)
                                 value = result.used / result.total;
+                            else
+                                value = 0.1;
 
                             if (value === undefined)
                                 value = -1;

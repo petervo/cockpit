@@ -18,7 +18,7 @@
     <div class="card-pf card-pf-accented nodes-os-card">
         <h2 class="card-pf-title" translatable="yes">OS Versions</h2>
         <div class="card-pf-body">
-            <div node-os-graph class="row" nodes="nodes">
+            <div node-os-graph class="row" nodes="nodes" commissaire="commissaire">
             </div>
         </div>
     </div>
@@ -62,8 +62,8 @@
             </td>
             <td>{{item.spec.externalID}}</td>
             <td>
-                <span class="spinner-inline node-status" kubernetes-status-icon status="nodeStatusIcon(item)"></span>
-                {{ nodeStatus(item) }}
+                <span class="spinner-inline node-status" kubernetes-status-icon status="nodeStatusIcon(item, commissaire)"></span>
+                {{ nodeStatus(item, commissaire) }}
             </td>
         </tr>
         <tr class="listing-ct-panel" ng-if="listing.expanded(id)">

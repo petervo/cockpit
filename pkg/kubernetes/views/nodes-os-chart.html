@@ -1,0 +1,8 @@
+<div class="col-xs-12 col-md-6" id="os-counts-graph" donut-pct-chart data="data" bar-size="8" legend="os-counts-legend" large-title="largeTitle"></div>
+<div class="col-xs-12 col-md-6 legend-col">
+    <div id="os-counts-legend"></div>
+    <p><button class="btn btn-default ng-scope"
+        ng-if="commissaire && commissaire.lastUpgradeStatus != 'in_process'" ng-click="commissaire.upgrade()"
+        translatable="yes">Update all nodes</button></p>
+    <p ng-if="commissaire.lastUpgradeStatus == 'in_process' "><span class="spinner spinner-xs spinner-inline"></span><span translatable="yes">Updating Nodes</span></p>
+</div>
