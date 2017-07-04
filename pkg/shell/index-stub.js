@@ -41,6 +41,15 @@
         about_sel: "#about-version",
         default_title: default_title
     };
+
+    /* When alt is held down we display debugging menu items */
+    document.addEventListener("click", function(ev) {
+        var i, visible = !!ev.altKey;
+        var advanced = document.querySelectorAll(".navbar-advanced");
+        for (i = 0; i < advanced.length; i++)
+            advanced[i].style.display = visible ? "block" : "none";
+    }, true);
+
     var machines = machis.instance();
     machines.overlay("localhost", { "label": default_title,
                                     "static_hostname": true });

@@ -295,16 +295,65 @@ html.index-page body {
     box-shadow: none;
 }
 
-@media (min-width: 320px) and (max-width: 767px) {
-    .navbar-primary .navbar-form {
-    margin: 0;
-    padding: 0;
+.navbar-header .navbar-toggle {
+    display: none;
+}
+
+.navbar-header .navbar-brand {
+    padding: 13px 0 13px 10px;
+}
+
+@media (max-width: 767px) {
+    .navbar-pf-vertical .navbar-toggle {
+        display: block;
+    }
+
+    .navbar-header .navbar-brand {
+        padding: 13px 0 0;
     }
 }
 
 .navbar-default .navbar-form {
     border-color: transparent;
 }
+
+#machine-dropdown {
+    .dropdown-menu {
+        width: unit(@sidebar-width-full, px);
+    }
+
+    #machine-link {
+        color: unset;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .dropdown-menu:after {
+        border: 10px solid transparent;
+        border-bottom-width: 0;
+        border-top-color: #fff;
+        bottom: -9px;
+        content: '';
+        height: 0;
+        left: 50%;
+        margin: 0 0 0 -10px;
+        position: absolute;
+        width: 0;
+        top:unset;
+    }
+
+    input {
+        padding-left: 25px;
+    }
+
+    i.fa-search {
+        top: 6px;
+        left: 0;
+    }
+}
+
+
 
 .nav > li[hidden] {
     display: none;
@@ -628,6 +677,10 @@ tbody.unlock .credential-unlock {
     padding-right: 5px;
 }
 
+#machine-spinner {
+    margin: 10px;
+}
+
 .spinner-white {
   border-bottom: 4px solid rgba(255, 255, 255, 0.25);
   border-left: 4px solid rgba(255, 255, 255, 0.25);
@@ -649,10 +702,17 @@ tbody.unlock .credential-unlock {
 .navbar-pf .navbar-brand {
     text-transform: uppercase;
     margin: 0 8px;
-    height: 25px;
-    padding: 2px 0;
 }
 
 .navbar-pf .navbar-brand:hover {
     color: #F1F1F1;
+}
+
+.navbar-pf .navbar-utility {
+    font-size: 13px;
+}
+
+.navbar-pf .pficon,
+.navbar-pf .navbar-nav > li > a {
+    line-height: 34px;
 }

@@ -1,6 +1,12 @@
 /*
  * Full large size sidebar.
  */
+
+
+.nav-pf-secondary-nav {
+    background: #393f44;
+}
+
 .nav-sidebar {
     width: unit(@sidebar-width-xl, px);
     height: 100%;
@@ -8,7 +14,13 @@
     top: 0px;
     z-index: 1;
     overflow-x: hidden;
-    overflow-y: hidden;
+    overflow-y: auto;
+
+    border-right: 1px solid #292e34;
+    border-bottom: none;
+    border-top: none;
+    border-left: none;
+    bottom: 0;
 
     a {
         width: unit(@sidebar-width-xl, px) !important;
@@ -16,6 +28,33 @@
     .list-group-item-value {
         max-width: unit(@sidebar-width-xl - 80, px) !important;
     }
+}
+
+.nav-item-pf-header {
+	color: #fff;
+	font-size: 16px;
+    margin: 18px 20px 10px 20px;
+}
+
+.nav-pf-secondary-nav .list-group {
+    border: none;
+}
+
+.nav-pf-secondary-nav .list-group-item {
+    background: inherit;
+    border: none;
+}
+
+.nav-pf-secondary-nav .list-group-item.active {
+    background-color: #4d5258;
+}
+.nav-pf-secondary-nav > .list-group > .list-group-item.active > a {
+    background-color: inherit;
+}
+
+.nav-pf-secondary-nav .list-group-item a {
+    display: block;
+    color: #d1d1d1;
 }
 
 #content {
