@@ -318,6 +318,9 @@ html.index-page body {
 }
 
 #machine-dropdown {
+    padding: 0;
+    margin: 0;
+
     .dropdown-menu {
         width: unit(@sidebar-width-full, px);
         top: 6rem;
@@ -326,10 +329,22 @@ html.index-page body {
     }
 
     #machine-link {
+        padding: 15px;
         color: unset;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        display: flex;
+        align-items: center;
+
+        img, b {
+            flex: none;
+        }
+
+        span {
+            flex: auto;
+            padding: 0 0 0 1ex;
+        }
     }
 
     .dropdown-menu:after {
