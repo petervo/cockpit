@@ -3,6 +3,7 @@
 }
 
 .flex-navbar {
+    flex: none;
     min-width: 100%;
 }
 
@@ -15,17 +16,20 @@
 
 .flex-sidebar {
     position: relative;
-}
-
-.flex-sidebar {
     flex: none;
     z-index: 999;
+    display: flex;
 }
 
 .nav-pf-vertical {
     position: static !important;
     height: 100%;
     border-right-width: 0;
+    top: 0;
+}
+
+.nav-sidebar {
+    position: relative;
 }
 
 .nav-sidebar-wrap:not(.expanded) {
@@ -74,7 +78,7 @@
 }
 
 .nav-sidebar {
-    height: 100vh;
+    // height: 100vh;
 }
 
 .nav-sidebar-wrap:not(.expanded) .nav-sidebar:not(.clicked):hover {
@@ -106,24 +110,25 @@
 }
 
 .nav-pf-secondary-nav {
-    left: unit(@sidebar-width-sm, px);
+    // left: unit(@sidebar-width-sm, px);
     background: #393f44;
     border-right: 1px solid #292e34;
     border-bottom: none;
     border-top: none;
     border-left: none;
-    bottom: 0;
-    overflow-x: hidden;
-    overflow-y: auto;
-    position: fixed;
-    top: 49px;
-    width: 200px;
+    flex: auto;
+    // bottom: 0;
+    // overflow-x: hidden;
+    // overflow-y: auto;
+    // position: fixed;
+    // top: 49px;
+    // width: 200px;
     z-index: -1;
 }
 
 .nav-item-pf-header {
-	color: #fff;
-	font-size: 16px;
+    color: #fff;
+    font-size: 16px;
     margin: 18px 20px 10px 20px;
 }
 
@@ -151,6 +156,7 @@
     overflow: visible;
     display: flex;
     flex-direction: column;
+    min-width: 15em;
 }
 
 #host-nav-item {
@@ -163,9 +169,10 @@
 
 .flex-container {
     display: flex;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     flex-flow: row wrap;
+    align-content: start;
 }
 
 .flex-content {
@@ -177,6 +184,6 @@
 }
 
 #host-apps {
-    flex: auto;
+    flex: 1 1 0;
     overflow-y: auto;
 }

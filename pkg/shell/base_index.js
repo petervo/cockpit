@@ -600,20 +600,20 @@ var phantom_checkpoint = phantom_checkpoint || function () { };
         }
 
         self.recalculate_layout = function() {
-            var topnav = $('#topnav');
-            var sidebar = $('#host-nav');
-            var main_nav = $(".multi-dashboard");
-            var content = $('#content');
+            // var topnav = $('#topnav');
+            // var sidebar = $('#host-nav');
+            // var main_nav = $(".multi-dashboard");
+            // var content = $('#content');
 
-            var window_height = $(window).height();
-            var topnav_height = topnav.height();
+            // var window_height = $(window).height();
+            // var topnav_height = topnav.height();
 
-            var y = window_height - topnav_height;
-            $(current_frame).height(Math.floor(y));
+            // var y = window_height - topnav_height;
+            // $(current_frame).height(Math.floor(y));
 
-            var sidebar_width = sidebar.is(':visible') ? sidebar.outerWidth() : 0;
-            sidebar_width += main_nav.is(':visible') ? main_nav.outerWidth() : 0;
-            content.css("margin-left", sidebar_width + "px");
+            // var sidebar_width = sidebar.is(':visible') ? sidebar.outerWidth() : 0;
+            // sidebar_width += main_nav.is(':visible') ? main_nav.outerWidth() : 0;
+            // content.css("margin-left", sidebar_width + "px");
         };
 
         self.retrieve_state = function() {
